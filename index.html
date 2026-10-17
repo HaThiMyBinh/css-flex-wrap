@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[Thực hành] CSS | flex-wrap property</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="page-container">
+        <!-- Header -->
+        <header class="header">
+            <h1>Thuộc tính <code>flex-wrap</code> trong CSS Flexbox</h1>
+            <p class="subtitle">Thực hành & so sánh các giá trị: <code>nowrap</code>, <code>wrap</code>, <code>wrap-reverse</code>, <code>initial</code></p>
+        </header>
+
+        <!-- 1. Lý thuyết -->
+        <section class="card theory-card">
+            <h2>1. Lý thuyết & Cú pháp</h2>
+            <p>Thuộc tính <code>flex-wrap</code> trong CSS được sử dụng để chỉ định xem các Flex Items được đặt trên một dòng hay được bọc thành nhiều dòng khi không đủ không gian trong Flex Container.</p>
+            <div class="syntax-box">
+                <span class="syntax-label">Cú pháp:</span>
+                <code>flex-wrap: nowrap | wrap | wrap-reverse | initial;</code>
+            </div>
+        </section>
+
+        <!-- 2. Interactive Playground -->
+        <section class="card playground-card">
+            <h2>2. Khu vực thử nghiệm tương tác trực tiếp (Interactive Playground)</h2>
+            <p class="desc">Bấm vào các nút dưới đây để thay đổi giá trị <code>flex-wrap</code> của Container và quan sát trực tiếp vị trí các Flex Items:</p>
+            
+            <div class="btn-group">
+                <button class="btn active" onclick="changeWrap('wrap', this)">flex-wrap: wrap</button>
+                <button class="btn" onclick="changeWrap('nowrap', this)">flex-wrap: nowrap</button>
+                <button class="btn" onclick="changeWrap('wrap-reverse', this)">flex-wrap: wrap-reverse</button>
+                <button class="btn" onclick="changeWrap('initial', this)">flex-wrap: initial</button>
+            </div>
+
+            <div class="playground-status">
+                Giá trị đang áp dụng: <strong id="current-val">flex-wrap: wrap;</strong>
+                <span id="current-explain" class="explain-text">(Các item tự động xuống dòng mới theo hướng thông thường)</span>
+            </div>
+
+            <div class="demo-wrapper">
+                <div class="container-demo" id="demo-box" style="flex-wrap: wrap;">
+                    <div class="item">Item 1</div>
+                    <div class="item">Item 2</div>
+                    <div class="item">Item 3</div>
+                    <div class="item">Item 4</div>
+                    <div class="item">Item 5</div>
+                    <div class="item">Item 6</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. So sánh trực quan 4 giá trị -->
+        <section class="card">
+            <h2>3. So sánh trực quan 4 giá trị của flex-wrap</h2>
+            
+            <div class="grid-comparisons">
+                <!-- Giá trị 1: wrap -->
+                <div class="compare-card">
+                    <div class="card-tag tag-blue">flex-wrap: wrap</div>
+                    <p class="card-desc">Cho phép các Flex Items xuống dòng khi thiếu không gian. Thứ tự dòng từ trên xuống dưới.</p>
+                    <div class="container-mini wrap">
+                        <div class="item-mini item-blue">Item 1</div>
+                        <div class="item-mini item-blue">Item 2</div>
+                        <div class="item-mini item-blue">Item 3</div>
+                        <div class="item-mini item-blue">Item 4</div>
+                        <div class="item-mini item-blue">Item 5</div>
+                        <div class="item-mini item-blue">Item 6</div>
+                    </div>
+                    <span class="note-caption">↓ Các dòng xếp từ trên xuống dưới</span>
+                </div>
+
+                <!-- Giá trị 2: nowrap -->
+                <div class="compare-card">
+                    <div class="card-tag tag-green">flex-wrap: nowrap (Mặc định)</div>
+                    <p class="card-desc">Bắt buộc tất cả Items nằm trên 1 dòng duy nhất. Không bọc xuống dòng ngay cả khi thiếu chỗ.</p>
+                    <div class="container-mini nowrap">
+                        <div class="item-mini item-green">Item 1</div>
+                        <div class="item-mini item-green">Item 2</div>
+                        <div class="item-mini item-green">Item 3</div>
+                        <div class="item-mini item-green">Item 4</div>
+                        <div class="item-mini item-green">Item 5</div>
+                        <div class="item-mini item-green">Item 6</div>
+                    </div>
+                    <span class="note-caption">→ Giữ trên 1 dòng duy nhất (có thể co hoặc tràn)</span>
+                </div>
+
+                <!-- Giá trị 3: wrap-reverse -->
+                <div class="compare-card">
+                    <div class="card-tag tag-coral">flex-wrap: wrap-reverse</div>
+                    <p class="card-desc">Cho phép xuống dòng nhưng đảo ngược hướng của Cross Axis (dòng mới được xếp lên phía trên).</p>
+                    <div class="container-mini wrap-reverse">
+                        <div class="item-mini item-coral">Item 1</div>
+                        <div class="item-mini item-coral">Item 2</div>
+                        <div class="item-mini item-coral">Item 3</div>
+                        <div class="item-mini item-coral">Item 4</div>
+                        <div class="item-mini item-coral">Item 5</div>
+                        <div class="item-mini item-coral">Item 6</div>
+                    </div>
+                    <span class="note-caption">↑ Đảo ngược hướng dòng (từ dưới lên trên)</span>
+                </div>
+
+                <!-- Giá trị 4: initial -->
+                <div class="compare-card">
+                    <div class="card-tag tag-yellow">flex-wrap: initial</div>
+                    <p class="card-desc">Đưa giá trị thuộc tính về mặc định của CSS (tương đương với <code>nowrap</code>).</p>
+                    <div class="container-mini initial">
+                        <div class="item-mini item-yellow">Item 1</div>
+                        <div class="item-mini item-yellow">Item 2</div>
+                        <div class="item-mini item-yellow">Item 3</div>
+                        <div class="item-mini item-yellow">Item 4</div>
+                        <div class="item-mini item-yellow">Item 5</div>
+                        <div class="item-mini item-yellow">Item 6</div>
+                    </div>
+                    <span class="note-caption">≡ Tương đương với nowrap (giá trị khởi tạo)</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Bảng tổng hợp kiến thức -->
+        <section class="card">
+            <h2>4. Bảng tổng kết so sánh các giá trị</h2>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Giá trị</th>
+                            <th>Có cho xuống dòng?</th>
+                            <th>Hướng Cross Axis (Hướng dòng)</th>
+                            <th>Đặc điểm nổi bật</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>wrap</code></td>
+                            <td><strong class="text-green">Có</strong></td>
+                            <td>Bình thường (trên xuống dưới)</td>
+                            <td>Phổ biến nhất, giúp bố cục responsive tự thích nghi khi thu nhỏ màn hình</td>
+                        </tr>
+                        <tr>
+                            <td><code>nowrap</code></td>
+                            <td><strong class="text-red">Không</strong></td>
+                            <td>Không áp dụng</td>
+                            <td>Giá trị mặc định; các item co lại hoặc tràn viền container</td>
+                        </tr>
+                        <tr>
+                            <td><code>wrap-reverse</code></td>
+                            <td><strong class="text-green">Có</strong></td>
+                            <td>Đảo ngược (dưới lên trên)</td>
+                            <td>Đảo hướng Cross Axis; thứ tự các phần tử trong mỗi dòng giữ nguyên</td>
+                        </tr>
+                        <tr>
+                            <td><code>initial</code></td>
+                            <td><strong class="text-red">Không</strong></td>
+                            <td>Không áp dụng</td>
+                            <td>Đưa thuộc tính về giá trị mặc định của CSS (tương đương <code>nowrap</code>)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Bài thực hành CSS Flexbox | <strong>flex-wrap Property</strong></p>
+        </footer>
+    </div>
+
+    <script>
+        function changeWrap(val, btn) {
+            const box = document.getElementById('demo-box');
+            const currentVal = document.getElementById('current-val');
+            const explain = document.getElementById('current-explain');
+            
+            box.style.flexWrap = val;
+            currentVal.textContent = 'flex-wrap: ' + val + ';';
+
+            const explains = {
+                'wrap': '(Các item tự động xuống dòng mới theo hướng thông thường)',
+                'nowrap': '(Bắt buộc tất cả item nằm trên 1 dòng duy nhất, không xuống dòng)',
+                'wrap-reverse': '(Xuống dòng nhưng đảo ngược hướng dòng - dòng 1 nằm dưới, dòng 2 nằm trên)',
+                'initial': '(Trả về giá trị mặc định của CSS: tương đương nowrap)'
+            };
+            explain.textContent = explains[val] || '';
+
+            // Update active button
+            const buttons = document.querySelectorAll('.btn-group .btn');
+            buttons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+    </script>
+</body>
+</html>
